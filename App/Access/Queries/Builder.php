@@ -116,6 +116,16 @@ class Builder
 		}
 	}
 
+	public function alias($alias)
+	{
+		if ($this->first_args !== '') {
+			$this->first_args = sprintf('%s AS %s', $this->first_args, $alias);
+
+			return $this;
+		}
+		die('select smth brruuuuuuuh !!!!!!!');
+	}
+
 	/**
 	 * @param  int 		$int 	id de la ligne à delete
 	 * @return instance
@@ -380,6 +390,7 @@ class Builder
 			$sql = sprintf('%s OFFSET %s', $sql, $this->offset);
 		}
 
+		// die($sql);
 		return $sql;
 	}
 
@@ -392,15 +403,15 @@ class Builder
 		$first_args = '';
 		if ($this->req_type === "SELECT") {
 			foreach ($args as $key => $value) {
-				$first_args = sprintf('%s %s.%s,', $first_args, $this->table ,$value);
+				$first_args = sprintf('%s `%s`.`%s`,', $first_args, $this->table ,$value);
 			}
 		} elseif ($this->req_type === "UPDATE") {
 			foreach ($args as $key => $value) {
-				$first_args = sprintf('%s %s.%s=:%s,', $first_args, $this->table, $key, $key);
+				$first_args = sprintf('%s `%s`.`%s`=:%s,', $first_args, $this->table, $key, $key);
 			}
 		} elseif ($this->req_type === "INSERT INTO") {
 			foreach ($args as $column => $value) {
-				$first_args = sprintf('%s %s,', $first_args, $column);
+				$first_args = sprintf('%s `%s`,', $first_args, $column);
 			}
 		}
 
@@ -419,13 +430,3 @@ class Builder
 		return Check::checkArgs($tags);
 	}
 }
-
-
-
-
-
-
-
-
-
-
