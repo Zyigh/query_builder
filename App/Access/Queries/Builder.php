@@ -116,6 +116,10 @@ class Builder
 		}
 	}
 
+	/**
+	 * @param  string 		$alias 
+	 * @return object 		$this
+	 */
 	public function alias($alias)
 	{
 		if ($this->first_args !== '') {
