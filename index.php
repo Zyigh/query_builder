@@ -1,8 +1,9 @@
 <?php
 use App\Access\Queries\Builder;
-// use \PDO;
+use App\Core\Test;
 
 require_once "vendor/autoload.php";
+
 
 $build = new Builder('articles');
 
